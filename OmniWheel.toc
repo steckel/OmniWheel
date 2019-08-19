@@ -1,0 +1,8 @@
+## Interface: 30200
+## Title: OmniWheel
+## Notes: A test AddOn
+
+OmniWheel_MathUtils.lua
+OmniWheel_Sector.lua
+OmniWheel_Circle.lua
+OmniWheel.lua
