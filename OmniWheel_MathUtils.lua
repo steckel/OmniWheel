@@ -9,3 +9,7 @@ end
 function radian_from_degree(angle)
   return angle * math.pi / 180;
 end
+
+function degrees_from_radians(radians)
+  return radians * (180/math.pi);
+end
