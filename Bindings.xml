@@ -1,9 +1,9 @@
 <Bindings>
-  <Binding name="Toggle Omni Wheel" header="Omni Wheel" runOnUp="true">
+  <Binding name="Toggle OmniWheel" header="Omni Wheel" runOnUp="true">
     if keystate == "down" then
-      f:Show();
+      omni_wheel_addon:ShowWheel();
     else
-      f:Hide();
+      omni_wheel_addon:HideWheel();
     end
   </Binding>
 </Bindings>

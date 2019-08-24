@@ -5,4 +5,11 @@
 OmniWheel_MathUtils.lua
 OmniWheel_Sector.lua
 OmniWheel_Circle.lua
+OmniWheel_Old.lua
+OmniWheelAddon.lua
+WheelController.lua
+WheelViewRenderer.lua
+WheelView.lua
+WheelGraphics.lua
+TextureGrid.lua
 OmniWheel.lua
