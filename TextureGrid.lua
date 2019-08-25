@@ -1,3 +1,4 @@
+export("TextureGrid", function()
 --
 -- TextureGrid
 TextureGrid = {};
@@ -94,3 +95,7 @@ function TextureGrid:SetAllTextures(grid_texture_paths)
   self.bottom_right:SetTexture(
     grid_texture_paths[HighlightOverlayGridSection.BOTTOM_RIGHT]);
 end
+
+return TextureGrid;
+
+end);

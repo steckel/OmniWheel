@@ -1,3 +1,8 @@
+export("WheelView", function()
+
+local EventTarget = require("EventTarget");
+local WheelGeometry = require("WheelGeometry");
+local WheelViewRenderer = require("WheelViewRenderer");
 ---
 -- WheelView is similar to a View in the MVC architecture.
 -- WheelView is the interface for the application to express wheel state.
@@ -62,3 +67,7 @@ function WheelView:Hide()
   self.frame:SetScript("OnUpdate", nil);
   self.event_target:Trigger("ON_HIDE");
 end
+
+return WheelView;
+
+end);

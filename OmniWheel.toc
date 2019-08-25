@@ -2,8 +2,8 @@
 ## Title: OmniWheel
 ## Notes: A test AddOn
 
+modules.lua
 EventTarget.lua
-OmniWheelAddon.lua
 OmniWheel_Circle.lua
 OmniWheel_MathUtils.lua
 OmniWheel_Old.lua
@@ -12,7 +12,8 @@ TextureGrid.lua
 WheelController.lua
 WheelGeometry.lua
 WheelGraphics.lua
-WheelView.lua
 WheelViewRenderer.lua
+WheelView.lua
+OmniWheelAddon.lua
 # load OmniWheel.lua last
 OmniWheel.lua

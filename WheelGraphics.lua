@@ -1,3 +1,5 @@
+export("WheelGraphics", function()
+
 WheelGraphics = {}
 WheelGraphics.__index = WheelGraphics;
 
@@ -33,3 +35,7 @@ function WheelGraphics:New(parent_frame)
 
   return self;
 end
+
+return WheelGraphics;
+
+end);

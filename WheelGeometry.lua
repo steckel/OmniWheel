@@ -1,3 +1,7 @@
+export("WheelGeometry", function()
+
+local NewSector = require("Sector");
+
 local THREE_SIXTY = 360;
 
 WheelGeometry = {};
@@ -77,3 +81,6 @@ end
 --   return table;
 -- end
 
+return WheelGeometry;
+
+end);

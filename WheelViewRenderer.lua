@@ -1,3 +1,8 @@
+export("WheelViewRenderer", function()
+
+local TextureGrid = require("TextureGrid");
+local WheelGraphics = require("WheelGraphics");
+
 ---
 -- WheelViewRenderer expresses WheelView state on a Frame with Graphics.
 WheelViewRenderer = {}
@@ -30,3 +35,7 @@ end
 
 function WheelViewRenderer:SetWheelSectorGraphics(sector_id, label, texture_path)
 end
+
+return WheelViewRenderer;
+
+end);

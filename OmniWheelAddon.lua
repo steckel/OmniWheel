@@ -1,4 +1,8 @@
---
+export("OmniWheelAddon", function()
+
+local WheelController = require("WheelController");
+local WheelView = require("WheelView");
+
 -- OmniWheelAddon
 OmniWheelAddon = {};
 OmniWheelAddon.__index = OmniWheelAddon;
@@ -23,3 +27,6 @@ function OmniWheelAddon:HideWheel()
   self.wheel_view:Hide();
 end
 
+return OmniWheelAddon;
+
+end);

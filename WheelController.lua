@@ -1,3 +1,4 @@
+export("WheelController", function()
 ---
 -- WheelController is similar to a Controller in the MVC architecture.
 WheelController = {}
@@ -35,3 +36,7 @@ function WheelController:OnWheelHide()
   -- local action = self.configuration:GetActionForSector(self.active_sector);
   -- action.fn();
 end
+
+return WheelController;
+
+end);

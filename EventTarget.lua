@@ -1,3 +1,5 @@
+export("EventTarget", function()
+
 -- TODO(steckel): move to utils
 function table_contains(table, value)
   for key, val in pairs(table) do
@@ -8,9 +10,11 @@ function table_contains(table, value)
   return false;
 end
 
-function table_keys(table)
+function table_keys(tab)
+  print('table_keys');
   local keys = {};
-  for key, val in pairs(table) do
+  for key, val in pairs(tab) do
+    print(key);
     table.insert(keys, key);
   end
   return keys;
@@ -57,3 +61,7 @@ function EventTarget:Trigger(event, value)
     end
   end
 end
+
+return EventTarget;
+
+end);

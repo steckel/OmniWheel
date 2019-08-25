@@ -1,3 +1,5 @@
+export("Sector", function()
+
 -- Meta class
 -- http://mathworld.wolfram.com/CircularSector.html
 -- https://www.geeksforgeeks.org/check-whether-point-exists-circle-sector-not/
@@ -44,3 +46,7 @@ function NewSector:Contains(angle)
     return angle > start_angle and angle < end_angle and true or false;
   end
 end
+
+return NewSector;
+
+end);
