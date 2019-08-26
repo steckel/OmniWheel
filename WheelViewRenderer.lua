@@ -29,8 +29,13 @@ function WheelViewRenderer:New(parent_frame)
 end
 
 function WheelViewRenderer:ShowWheelSectorHighlight(eight_sector)
-  self.highlight_texture_grid:SetAllTextures(
-    sector_grid_images[eight_sector]);
+  if eight_sector then
+    self.highlight_texture_grid:SetAllTextures(
+      sector_grid_images[eight_sector]);
+    self.highlight_texture_grid:Show();
+  else
+    self.highlight_texture_grid:Hide();
+  end
 end
 
 function WheelViewRenderer:SetWheelSectorGraphics(sector_id, label, texture_path)

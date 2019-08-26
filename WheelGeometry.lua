@@ -25,7 +25,14 @@ function WheelGeometry:New()
 end
 
 function WheelGeometry:GetSectorAtPoint(center_x, center_y, x, y)
-  local angle = math.atan2(y - center_y, x - center_x);
+  local normalized_x = x - center_x;
+  local normalized_y = y - center_y;
+  local distance = math.sqrt(normalized_x^2 + normalized_y ^ 2);
+  if distance < 50 then
+    return nil
+  end
+
+  local angle = math.atan2(normalized_y, normalized_x);
   angle = angle > 0 and angle or radian_from_degree(THREE_SIXTY) + angle;
   for key, value in pairs(self.sectors) do
     local sector = value.sector;

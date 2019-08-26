@@ -8,7 +8,6 @@ modules.lua
 # everything else can come in alphabetically
 EventTarget.lua
 OmniWheelAddon.lua
-OmniWheel_Circle.lua
 OmniWheel_MathUtils.lua
 OmniWheel_Old.lua
 OmniWheel_Sector.lua

@@ -4,17 +4,14 @@ function require(name)
   local package = assert(
     package_table[name],
     'Module with name '..name..' does not exist in package table.');
-  print(package.loaded);
   if not package.loaded then
     local status, export_or_error = pcall(package.closure);
     if not status then
-      print(export_or_error);
       error(export_or_error);
     end
     package.loaded = true;
     package.export = export_or_error;
   end
-  print(package.export);
   return package.export;
 end
 

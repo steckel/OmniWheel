@@ -18,12 +18,10 @@ function OmniWheelAddon:New(uiparent)
 end
 
 function OmniWheelAddon:ShowWheel()
-  print("OmniWheelAddon:ShowWheel");
   self.wheel_view:Show();
 end
 
 function OmniWheelAddon:HideWheel()
-  print("OmniWheelAddon:HideWheel");
   self.wheel_view:Hide();
 end
 

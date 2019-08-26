@@ -69,6 +69,37 @@ function TextureGrid:New(parent_frame)
   return self;
 end
 
+function TextureGrid:Show()
+  self.center_far_right:Show();
+  self.center_right:Show();
+  self.top_far_right:Show();
+  self.top_right:Show();
+  self.top_far_left:Show();
+  self.top_left:Show();
+  self.center_far_left:Show();
+  self.center_left:Show();
+  self.bottom_far_left:Show();
+  self.bottom_left:Show();
+  self.bottom_far_right:Show();
+  self.bottom_right:Show();
+end
+
+function TextureGrid:Hide()
+  self.center_far_right:Hide();
+  self.center_right:Hide();
+  self.top_far_right:Hide();
+  self.top_right:Hide();
+  self.top_far_left:Hide();
+  self.top_left:Hide();
+  self.center_far_left:Hide();
+  self.center_left:Hide();
+  self.bottom_far_left:Hide();
+  self.bottom_left:Hide();
+  self.bottom_far_right:Hide();
+  self.bottom_right:Hide();
+end
+
+
 function TextureGrid:SetAllTextures(grid_texture_paths)
   self.center_far_right:SetTexture(
     grid_texture_paths[HighlightOverlayGridSection.CENTER_FAR_RIGHT]);

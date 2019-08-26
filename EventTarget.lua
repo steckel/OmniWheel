@@ -11,10 +11,8 @@ function table_contains(table, value)
 end
 
 function table_keys(tab)
-  print('table_keys');
   local keys = {};
   for key, val in pairs(tab) do
-    print(key);
     table.insert(keys, key);
   end
   return keys;

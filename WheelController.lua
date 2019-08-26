@@ -12,12 +12,10 @@ function WheelController:New(configuration)
 end
 
 function WheelController:OnWheelSectorHover(sector)
-  print('WheelController:OnWheelSectorHover('..sector..')');
   self.active_sector = sector;
 end
 
 function WheelController:OnWheelShow()
-  print('WheelController:OnWheelShow()');
   self.active_sector = nil;
 end
 
