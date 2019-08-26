@@ -11,9 +11,11 @@ WheelView.__index = WheelView;
 
 function WheelView:New(uiparent)
   local self = setmetatable({}, WheelView);
+  local ui_scale = uiparent:GetEffectiveScale();
 
   self.frame = CreateFrame("Frame", nil, uiparent);
   self.frame:Hide();
+  self.frame:SetScale(1 / ui_scale);
   self.frame:SetFrameStrata("FULLSCREEN");
   -- NOTE(steckel): Do we need ui_scale here?
   --local ui_scale = parent_frame:GetEffectiveScale();
@@ -29,7 +31,8 @@ function WheelView:New(uiparent)
   -- Wheel Geometry
   self.wheel_geometry = WheelGeometry:New();
   -- Texture Rendering
-  self.renderer = WheelViewRenderer:New(self.frame);
+  self.renderer = WheelViewRenderer:New(
+    self.frame, --[[kinda like the model for now]]self.wheel_geometry);
   -- Event Handling
   self.event_target = EventTarget:New({"ON_SHOW", "ON_HIDE", "ON_SECTOR_HOVER"});
   return self;
@@ -40,7 +43,7 @@ function WheelView:OnFrameUpdate()
   local ui_scale, x, y = UIParent:GetEffectiveScale(), GetCursorPosition();
   -- FIXME(steckel): Gota to trim these values
   if (x ~= self.previous_x or y ~= self.previous_y) then
-    self:OnCursorMove(x / ui_scale, y / ui_scale);
+    self:OnCursorMove(x, y);
   end
 end
 

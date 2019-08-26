@@ -25,9 +25,29 @@ function WheelController:OnWheelHide()
   end
 
   if (self.active_sector == EightSector.ONE) then
+    -- MAP
+    ToggleFrame(WorldMapFrame);
+  elseif (self.active_sector == EightSector.TWO) then
+    -- SPELL BOOK
     ToggleSpellBook(1);
+  elseif (self.active_sector == EightSector.THREE) then
+    -- QUEST LOG
+    ToggleQuestLog();
+  elseif (self.active_sector == EightSector.FOUR) then
+    -- TALENTS
+    ToggleTalentFrame();
   elseif (self.active_sector == EightSector.FIVE) then
+    -- CHARACTER
     ToggleCharacter("PaperDollFrame");
+  elseif (self.active_sector == EightSector.SIX) then
+    -- SOCIAL
+    ToggleFriendsFrame();
+  elseif (self.active_sector == EightSector.SEVEN) then
+    -- ALL BAGS
+    ToggleAllBags();
+  elseif (self.active_sector == EightSector.EIGHT) then
+    -- REQUEST HELP
+    ToggleHelpFrame();
   else
     -- shrug
   end

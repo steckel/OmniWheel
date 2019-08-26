@@ -1,6 +1,7 @@
-## Interface: 30200
+## Interface: 11302
 ## Title: OmniWheel
-## Notes: A test AddOn
+## Notes: A cool addon interaction wheel.
+## Version: 1.0.0-beta
 
 # load module system functions first
 modules.lua

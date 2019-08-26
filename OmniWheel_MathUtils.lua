@@ -13,3 +13,9 @@ end
 function degrees_from_radians(radians)
   return radians * (180/math.pi);
 end
+
+function polar_to_cartesian(theta, radius)
+  local x = radius * math.cos(theta);
+  local y = radius * math.sin(theta);
+  return x,y;
+end

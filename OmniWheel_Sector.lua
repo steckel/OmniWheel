@@ -47,6 +47,10 @@ function NewSector:Contains(angle)
   end
 end
 
+function NewSector:GetBisectingRadius()
+  return radian_from_degree(self.start_angle) + radian_from_degree(self.central_angle) / 2;
+end
+
 return NewSector;
 
 end);

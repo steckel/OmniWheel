@@ -24,6 +24,12 @@ function WheelGeometry:New()
   return self;
 end
 
+function WheelGeometry:GetSector(eight_sector)
+  -- FIXME(steckel): This just so happens to work, but it's not necessarily
+  -- indexed by EightSector yet.
+  return self.sectors[eight_sector].sector;
+end
+
 function WheelGeometry:GetSectorAtPoint(center_x, center_y, x, y)
   local normalized_x = x - center_x;
   local normalized_y = y - center_y;

@@ -8,7 +8,7 @@ local WheelGraphics = require("WheelGraphics");
 WheelViewRenderer = {}
 WheelViewRenderer.__index = WheelViewRenderer;
 
-function WheelViewRenderer:New(parent_frame)
+function WheelViewRenderer:New(parent_frame, wheel_geometry)
   local self = setmetatable({}, WheelViewRenderer);
   -- background
   self.background = parent_frame:CreateTexture(nil,"BACKGROUND");
@@ -24,7 +24,7 @@ function WheelViewRenderer:New(parent_frame)
   self.highlight_texture_grid = TextureGrid:New(parent_frame);
   -- TODO(steckel): Remove this initial test call of SetAllTextures
   self:ShowWheelSectorHighlight(EightSector.ONE);
-  self.wheel_graphics = WheelGraphics:New(parent_frame);
+  self.wheel_graphics = WheelGraphics:New(parent_frame, wheel_geometry);
   return self;
 end
 
