@@ -1,9 +1,21 @@
 local package_table = {};
 
 function require(name)
-  return assert(
+  local package = assert(
     package_table[name],
     'Module with name '..name..' does not exist in package table.');
+  print(package.loaded);
+  if not package.loaded then
+    local status, export_or_error = pcall(package.closure);
+    if not status then
+      print(export_or_error);
+      error(export_or_error);
+    end
+    package.loaded = true;
+    package.export = export_or_error;
+  end
+  print(package.export);
+  return package.export;
 end
 
 function export(name, closure)
@@ -19,11 +31,6 @@ function export(name, closure)
       __newindex = M,
     });
     setfenv(closure, newenv);
-    -- TODO(steckel): Don't pcall until require.
-    local status, export_or_error = pcall(closure);
-    if status == false then
-      print(status, export_or_error);
-    end
-    package_table[name] = export_or_error;
+    package_table[name] = {closure = closure, loaded = false, export = nil};
   end
 end
