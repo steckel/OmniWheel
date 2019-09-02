@@ -1,4 +1,4 @@
-export("WheelViewRenderer", function()
+module("WheelViewRenderer", package.seeall);
 
 local TextureGrid = require("TextureGrid");
 local WheelGraphics = require("WheelGraphics");
@@ -42,5 +42,3 @@ function WheelViewRenderer:SetWheelSectorGraphics(sector_id, label, texture_path
 end
 
 return WheelViewRenderer;
-
-end);

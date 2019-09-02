@@ -1,4 +1,4 @@
-export("WheelGeometry", function()
+module("WheelGeometry", package.seeall);
 
 local NewSector = require("Sector");
 
@@ -95,5 +95,3 @@ end
 -- end
 
 return WheelGeometry;
-
-end);

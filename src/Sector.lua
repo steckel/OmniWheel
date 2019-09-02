@@ -1,4 +1,4 @@
-export("Sector", function()
+module("Sector", package.seeall);
 
 -- Meta class
 -- http://mathworld.wolfram.com/CircularSector.html
@@ -52,5 +52,3 @@ function NewSector:GetBisectingRadius()
 end
 
 return NewSector;
-
-end);

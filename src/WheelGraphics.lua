@@ -1,4 +1,4 @@
-export("WheelGraphics", function()
+module("WheelGraphics", package.seeall);
 
 local NewSector = require("Sector");
 
@@ -155,5 +155,3 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
 end
 
 return WheelGraphics;
-
-end);

@@ -1,4 +1,4 @@
-export("EventTarget", function()
+module("EventTarget", package.seeall);
 
 -- TODO(steckel): move to utils
 function table_contains(table, value)
@@ -61,5 +61,3 @@ function EventTarget:Trigger(event, value)
 end
 
 return EventTarget;
-
-end);

@@ -1,4 +1,4 @@
-export("WheelController", function()
+module("WheelController", package.seeall);
 ---
 -- WheelController is similar to a Controller in the MVC architecture.
 WheelController = {}
@@ -56,5 +56,3 @@ function WheelController:OnWheelHide()
 end
 
 return WheelController;
-
-end);

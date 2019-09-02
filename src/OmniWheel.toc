@@ -1,0 +1,6 @@
+## Interface: 11302
+## Title: OmniWheel
+## Notes: A cool addon interaction wheel.
+## Version: 1.0.0-beta
+
+OmniWheel.lua

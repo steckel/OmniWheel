@@ -1,4 +1,4 @@
-export("WheelView", function()
+module("WheelView", package.seeall);
 
 local EventTarget = require("EventTarget");
 local WheelGeometry = require("WheelGeometry");
@@ -72,5 +72,3 @@ function WheelView:Hide()
 end
 
 return WheelView;
-
-end);

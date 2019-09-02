@@ -1,4 +1,4 @@
-export("OmniWheelAddon", function()
+module("OmniWheelAddon", package.seeall);
 
 local WheelController = require("WheelController");
 local WheelView = require("WheelView");
@@ -26,5 +26,3 @@ function OmniWheelAddon:HideWheel()
 end
 
 return OmniWheelAddon;
-
-end);

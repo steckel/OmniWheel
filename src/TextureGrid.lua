@@ -1,4 +1,4 @@
-export("TextureGrid", function()
+module("TextureGrid", package.seeall);
 --
 -- TextureGrid
 TextureGrid = {};
@@ -128,5 +128,3 @@ function TextureGrid:SetAllTextures(grid_texture_paths)
 end
 
 return TextureGrid;
-
-end);
