@@ -16,10 +16,10 @@ function WheelViewRenderer:New(parent_frame, wheel_geometry)
   self.background:SetAllPoints(self.frame);
   -- wheel frame
   self.wheel_frame = parent_frame:CreateTexture(nil,"ARTWORK");
-  self.wheel_frame:SetWidth(512);
-  self.wheel_frame:SetHeight(512);
+  self.wheel_frame:SetSize(512, 512);
   self.wheel_frame:SetTexture("Interface\\AddOns\\OmniWheel\\textures\\8a_frame_center.tga");
   self.wheel_frame:SetPoint("CENTER", self.frame, "CENTER");
+  self.wheel_frame:SetAlpha(0.7);
   -- highlight
   self.highlight_texture_grid = TextureGrid:New(parent_frame);
   -- TODO(steckel): Remove this initial test call of SetAllTextures
