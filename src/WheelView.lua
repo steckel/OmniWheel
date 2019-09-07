@@ -34,7 +34,7 @@ function WheelView:New(uiparent)
   self.renderer = WheelViewRenderer:New(
     self.frame, --[[kinda like the model for now]]self.wheel_geometry);
   -- Event Handling
-  self.event_target = EventTarget:New({"ON_SHOW", "ON_HIDE", "ON_SECTOR_HOVER"});
+  self.event_target = EventTarget:New({"ON_SHOW", "ON_HIDE", "ON_SECTOR_HOVER" });
   return self;
 end
 

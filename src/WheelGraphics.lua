@@ -154,7 +154,15 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
   self.sector_eight_font:SetPoint("TOPLEFT", self.sector_eight_texture, "CENTER", 0, -30);
   self.sector_eight_font:SetText("REQUEST HELP");
 
+  parent_frame:RegisterEvent("PLAYER_ENTERING_WORLD");
+  parent_frame:RegisterEvent("UNIT_PORTRAIT_UPDATE");
+  parent_frame:SetScript("OnEvent", function(frame, event, ...) WheelGraphics.OnEvent(self, event) end);
   return self;
+end
+
+function WheelGraphics:OnEvent(event)
+  if event ~= "PLAYER_ENTERING_WORLD" and event ~= "UNIT_PORTRAIT_UPDATE" then return end;
+  SetPortraitTexture(self.sector_five_texture, "player");
 end
 
 return WheelGraphics;
