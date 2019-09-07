@@ -45,7 +45,7 @@ function EventTarget:RemoveEventListener(event, callback)
   error("lol");
 end
 
-function EventTarget:Trigger(event, value)
+function EventTarget:Trigger(event, ...)
   if not table_contains(self.event_names, event) then
     print("EventTarget instance does not handle "..event.." events.");
     error("EventTarget instance does not handle "..event.." events.");
@@ -53,7 +53,7 @@ function EventTarget:Trigger(event, value)
 
   for i, callback in pairs(self.callbacks[event]) do
     -- FIXME(steckel): Remove the injected self assumption.
-    local status, err = pcall(callback.fn, callback.caller, value);
+    local status, err = pcall(callback.fn, callback.caller, ...);
     if status == false then
       print(status, err);
     end
