@@ -29,7 +29,7 @@ function WheelController:OnWheelHide()
     ToggleFrame(WorldMapFrame);
   elseif (self.active_sector == EightSector.TWO) then
     -- SPELL BOOK
-    ToggleSpellBook(1);
+    ToggleSpellBook(BOOKTYPE_SPELL);
   elseif (self.active_sector == EightSector.THREE) then
     -- QUEST LOG
     ToggleQuestLog();
