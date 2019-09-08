@@ -1,5 +1,10 @@
 module("WheelGraphics", package.seeall);
 
+local BATTLENET_PORTRAIT = "Interface\\FriendsFrame\\Battlenet-Portrait.blp";
+local FRIENDS_FRAME_SCROLL_ICON = "Interface\\FriendsFrame\\FriendsFrameScrollIcon.blp";
+local GUILD_CHARTER_ICON = "Interface\\PetitionFrame\\GuildCharter-Icon.blp";
+local UI_QUEST_LOG_BOOK_ICON = "Interface\\QUESTFRAME\\UI-QuestLog-BookIcon.blp";
+
 local icon_distance_from_center = 132 ;
 local icon_size = 36;
 local text_distance_from_icon = 36;
@@ -19,7 +24,7 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
   self.sector_one_texture:SetSize(icon_size, icon_size);
   self.sector_one_texture:SetPoint(
     "CENTER", parent_frame, "CENTER", icon_distance_from_center / ui_scale, 0);
-  self.sector_one_texture:SetTexture("Interface\\ICONS\\INV_Misc_Map_01.blp");
+  self.sector_one_texture:SetTexture(FRIENDS_FRAME_SCROLL_ICON);
   local sector_one_texture_mask = parent_frame:CreateMaskTexture();
   sector_one_texture_mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMaskSmall.blp", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
   sector_one_texture_mask:SetSize(32, 32);
@@ -57,7 +62,7 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
   self.sector_three_texture:SetSize(icon_size, icon_size);
   self.sector_three_texture:SetPoint(
     "CENTER", parent_frame, "CENTER", sector_three_x / ui_scale, sector_three_y / ui_scale);
-  self.sector_three_texture:SetTexture("Interface\\ICONS\\INV_Misc_Book_08.blp");
+  self.sector_three_texture:SetTexture(UI_QUEST_LOG_BOOK_ICON);
   local sector_three_texture_mask = parent_frame:CreateMaskTexture();
   sector_three_texture_mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMaskSmall.blp", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
   sector_three_texture_mask:SetSize(32, 32);
@@ -105,7 +110,7 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
   self.sector_six_texture:SetSize(icon_size, icon_size);
   self.sector_six_texture:SetPoint(
     "CENTER", parent_frame, "CENTER", sector_six_x / ui_scale, sector_six_y / ui_scale);
-  self.sector_six_texture:SetTexture("Interface\\ICONS\\UI_Chat.blp");
+  self.sector_six_texture:SetTexture(BATTLENET_PORTRAIT);
   local sector_six_texture_mask = parent_frame:CreateMaskTexture();
   sector_six_texture_mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMaskSmall.blp", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
   sector_six_texture_mask:SetSize(32, 32);
@@ -143,7 +148,7 @@ function WheelGraphics:New(parent_frame, --[[WheelGeometry ]]wheel_geometry)
   self.sector_eight_texture:SetSize(icon_size, icon_size);
   self.sector_eight_texture:SetPoint(
     "CENTER", parent_frame, "CENTER", sector_eight_x / ui_scale, sector_eight_y / ui_scale);
-  self.sector_eight_texture:SetTexture("Interface\\ICONS\\Mail_GMIcon.blp");
+  self.sector_eight_texture:SetTexture(GUILD_CHARTER_ICON);
   local sector_eight_texture_mask = parent_frame:CreateMaskTexture();
   sector_eight_texture_mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMaskSmall.blp", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
   sector_eight_texture_mask:SetSize(32, 32);
