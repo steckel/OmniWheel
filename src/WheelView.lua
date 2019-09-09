@@ -1,8 +1,9 @@
 module("WheelView", package.seeall);
 
 local EventTarget = require("EventTarget");
+local TextureGrid = require("TextureGrid");
 local WheelGeometry = require("WheelGeometry");
-local WheelViewRenderer = require("WheelViewRenderer");
+local WheelGraphics = require("WheelGraphics");
 ---
 -- WheelView is similar to a View in the MVC architecture.
 -- WheelView is the interface for the application to express wheel state.
@@ -17,24 +18,32 @@ function WheelView:New(uiparent)
   self.frame:Hide();
   self.frame:SetScale(1 / ui_scale);
   self.frame:SetFrameStrata("FULLSCREEN");
-  -- NOTE(steckel): Do we need ui_scale here?
-  --local ui_scale = parent_frame:GetEffectiveScale();
-  --self.frame:SetScale(1 / ui_scale);
   -- FIXME(steckel): Inject GetScreenWidth and GetScreenHeight values
   self.frame:SetWidth(GetScreenWidth());
   self.frame:SetHeight(GetScreenHeight());
   self.frame:SetPoint("CENTER",0,0);
-  -- self.frame:EnableMouse(true);
   -- Mouse Tracking
   self.previous_x = 0;
   self.previous_y = 0;
   -- Wheel Geometry
   self.wheel_geometry = WheelGeometry:New();
-  -- Texture Rendering
-  self.renderer = WheelViewRenderer:New(
-    self.frame, --[[kinda like the model for now]]self.wheel_geometry);
   -- Event Handling
   self.event_target = EventTarget:New({"ON_SHOW", "ON_HIDE", "ON_SECTOR_HOVER" });
+  -- background
+  self.background = self.frame:CreateTexture(nil,"BACKGROUND");
+  self.background:SetColorTexture(0.0, 0.0, 0.0, 0.5);
+  self.background:SetAllPoints(self.frame);
+  -- wheel frame
+  self.wheel_frame = self.frame:CreateTexture(nil,"ARTWORK");
+  self.wheel_frame:SetSize(512, 512);
+  self.wheel_frame:SetTexture("Interface\\AddOns\\OmniWheel\\textures\\8a_frame_center.tga");
+  self.wheel_frame:SetPoint("CENTER", self.frame, "CENTER");
+  self.wheel_frame:SetAlpha(0.7);
+  -- highlight
+  self.highlight_texture_grid = TextureGrid:New(self.frame);
+  -- TODO(steckel): Remove this initial test call of SetAllTextures
+  self:ShowWheelSectorHighlight(EightSector.ONE);
+  self.wheel_graphics = WheelGraphics:New(self.frame, self.wheel_geometry);
   return self;
 end
 
@@ -51,7 +60,7 @@ function WheelView:OnCursorMove(cursor_x, cursor_y)
   local center_x, center_y = self.frame:GetCenter();
   local eight_sector =
     self.wheel_geometry:GetSectorAtPoint(center_x, center_y, cursor_x, cursor_y);
-  self.renderer:ShowWheelSectorHighlight(eight_sector);
+  self:ShowWheelSectorHighlight(eight_sector);
   self.event_target:Trigger("ON_SECTOR_HOVER", eight_sector);
 end
 
@@ -69,6 +78,16 @@ function WheelView:Hide()
   self.frame:Hide();
   self.frame:SetScript("OnUpdate", nil);
   self.event_target:Trigger("ON_HIDE");
+end
+
+function WheelView:ShowWheelSectorHighlight(eight_sector)
+  if eight_sector then
+    self.highlight_texture_grid:SetAllTextures(
+      sector_grid_images[eight_sector]);
+    self.highlight_texture_grid:Show();
+  else
+    self.highlight_texture_grid:Hide();
+  end
 end
 
 return WheelView;

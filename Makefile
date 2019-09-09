@@ -21,7 +21,6 @@ dist/OmniWheel.lua: dist
  -m WheelView\
  -m EventTarget\
  -m WheelGeometry\
- -m WheelViewRenderer\
  -m Sector\
  -m TextureGrid\
  -m WheelGraphics
