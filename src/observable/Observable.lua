@@ -1,4 +1,4 @@
-module("Observable", package.seeall);
+module("observable", package.seeall);
 
 local Subscription = require("observable.subscription");
 
@@ -34,11 +34,6 @@ end
 --
 -- # A subscription is the result of of an observer (that lets you unsubscribe).
 --]]
-
--- assert(type(observer.next) == "function");
--- assert(type(observer.error) == "function");
--- assert(type(observer.complete) == "function");
-
 Observable = {};
 Observable.__index = Observable;
 
@@ -73,9 +68,14 @@ function Observable:Map(mapper)
   end)
 end
 
--- function Observable:Merge(observer) end
-
--- function Observable:Filter(predicate) end
+function Observable:Filter(predicate)
+  return Observable:New(function(observer)
+    local next_handler = function(val)
+      if predicate(val) then observer:Next(val) end
+    end
+    return self:Subscribe(next_handler, observer.Error, observer.Complete).Unsubscribe
+  end)
+end
 
 function Observable:Reduce(reducer, initial)
   local index = 1
@@ -88,6 +88,9 @@ function Observable:Reduce(reducer, initial)
     end
     return self:Subscribe(next_handler, observer.Error, observer.Complete).Unsubscribe
   end)
+end
+
+function Observable:IsClosed()
 end
 
 return Observable;

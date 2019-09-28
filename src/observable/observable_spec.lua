@@ -116,6 +116,8 @@ describe("observable.observable", function()
         assert.spy(next_handler).was_called_with(2)
         assert.spy(next_handler).was_called_with(3)
       end)
+
+      pending("returns a closed Subscription when Observable is closed", function() end)
     end)
 
     describe("Map", function()
@@ -145,6 +147,37 @@ describe("observable.observable", function()
         assert.spy(mapped_next_handler).was_called_with(3)
         assert.spy(mapped_next_handler).was_called_with(4)
       end)
+
+      pending("returns a closed Observable when Observable is closed", function() end)
+    end)
+
+    describe("Filter", function()
+      it("creates a new observer with the filtered reuslts of the passed "..
+          "predicate function", function()
+        local observable = Observable:New(function(observer)
+          observer:Next(1);
+          observer:Next(2);
+          observer:Next(3);
+        end)
+
+        local next_handler = spy.new(function() end)
+        observable:Subscribe(next_handler)
+        assert.spy(next_handler).called(3)
+        assert.spy(next_handler).was_called_with(1)
+        assert.spy(next_handler).was_called_with(2)
+        assert.spy(next_handler).was_called_with(3)
+
+        local even_numbers = observable:Filter(function(val)
+          return val % 2 == 0
+        end)
+
+        local filtered_next_handler = spy.new(function() end)
+        even_numbers:Subscribe(filtered_next_handler)
+        assert.spy(filtered_next_handler).called(1)
+        assert.spy(filtered_next_handler).was_called_with(2)
+      end)
+
+      pending("returns a closed Observable when Observable is closed", function() end)
     end)
 
     describe("Reduce", function()
@@ -164,7 +197,6 @@ describe("observable.observable", function()
         assert.spy(next_handler).was_called_with(3)
 
         local reducer = spy.new(function(prev_val, next_val)
-          print('reduced_observable', prev_val, next_val)
           return prev_val + next_val
         end)
         local reduced_observable = observable:Reduce(reducer, 0)
@@ -181,6 +213,10 @@ describe("observable.observable", function()
         assert.spy(reduced_next_handler).was_called_with(3)
         assert.spy(reduced_next_handler).was_called_with(6)
       end)
+
+      pending("returns a closed Observable when Observable is closed", function() end)
     end)
+
+    pending(":IsClosed", function() end)
   end)
 end)
