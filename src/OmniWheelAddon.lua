@@ -11,9 +11,23 @@ function OmniWheelAddon:New(uiparent)
   local self = setmetatable({}, OmniWheelAddon);
   local controller = WheelController:New();
   self.wheel_view = WheelView:New(uiparent);
-  self.wheel_view:AddEventListener("ON_SECTOR_HOVER", controller.OnWheelSectorHover, controller);
-  self.wheel_view:AddEventListener("ON_SHOW", controller.OnWheelShow, controller);
-  self.wheel_view:AddEventListener("ON_HIDE", controller.OnWheelHide, controller);
+
+  self.wheel_view
+    :Observe()
+    :Filter(function(event) return event.type == "ON_SECTOR_HOVER" end)
+    :Map(function(event) return event.data end)
+    :Subscribe(bind(controller.OnWheelSectorHover, controller))
+
+  self.wheel_view
+    :Observe()
+    :Filter(function(event) return event.type == "On_SHOW" end)
+    :Subscribe(bind(controller.OnWheelShow, controlller))
+
+  self.wheel_view
+    :Observe()
+    :Filter(function(event) return event.type == "ON_HIDE" end)
+    :Subscribe(bind(controller.OnWheelHide, controller))
+
   return self;
 end
 

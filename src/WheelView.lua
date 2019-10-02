@@ -1,6 +1,6 @@
 module("WheelView", package.seeall);
 
-local EventTarget = require("EventTarget");
+local Subject = require("observable.subject");
 local TextureGrid = require("TextureGrid");
 local WheelGeometry = require("WheelGeometry");
 local WheelGraphics = require("WheelGraphics");
@@ -28,7 +28,7 @@ function WheelView:New(uiparent)
   -- Wheel Geometry
   self.wheel_geometry = WheelGeometry:New();
   -- Event Handling
-  self.event_target = EventTarget:New({"ON_SHOW", "ON_HIDE", "ON_SECTOR_HOVER" });
+  self.event_subject = Subject:New()
   -- background
   self.background = self.frame:CreateTexture(nil,"BACKGROUND");
   self.background:SetColorTexture(0.0, 0.0, 0.0, 0.5);
@@ -61,23 +61,23 @@ function WheelView:OnCursorMove(cursor_x, cursor_y)
   local eight_sector =
     self.wheel_geometry:GetSectorAtPoint(center_x, center_y, cursor_x, cursor_y);
   self:ShowWheelSectorHighlight(eight_sector);
-  self.event_target:Trigger("ON_SECTOR_HOVER", eight_sector);
+  self.event_subject:Next({type = "ON_SECTOR_HOVER", data = eight_sector})
 end
 
-function WheelView:AddEventListener(event, fn, caller)
-  self.event_target:AddEventListener(event, fn, caller);
+function WheelView:Observe()
+  return self.event_subject:Observe()
 end
 
 function WheelView:Show()
   self.frame:Show();
   self.frame:SetScript("OnUpdate", function() self:OnFrameUpdate() end);
-  self.event_target:Trigger("ON_SHOW");
+  self.event_subject:Next({type = "ON_SHOW"})
 end
 
 function WheelView:Hide()
   self.frame:Hide();
   self.frame:SetScript("OnUpdate", nil);
-  self.event_target:Trigger("ON_HIDE");
+  self.event_subject:Next({type = "ON_HIDE"})
 end
 
 function WheelView:ShowWheelSectorHighlight(eight_sector)

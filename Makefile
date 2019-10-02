@@ -16,10 +16,13 @@ dist/OmniWheel.lua: dist
  -g module_polyfill\
  -g globals\
  -e OmniWheel\
+ -m observable.observable \
+ -m observable.subject\
+ -m observable.subscription\
+ -m observable.subscription_observer\
  -m OmniWheelAddon\
  -m WheelController\
  -m WheelView\
- -m EventTarget\
  -m WheelGeometry\
  -m Sector\
  -m TextureGrid\
