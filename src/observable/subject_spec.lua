@@ -46,12 +46,39 @@ describe("observable.subject", function()
     end)
 
     describe(":Error", function()
-      pending("triggers the subscribers' error handler", function()
+      it("triggers the subscribers' error handler", function()
+        local subject = Subject:New()
+        local error_handler_a = spy.new(function() end)
+        local subscriber_a = subject:Subscribe(function()end,error_handler_a)
+        local error_handler_b = spy.new(function() end)
+        local subscriber_b = subject:Subscribe(function()end,error_handler_b)
+
+        subject:Error("NOT_FOUND")
+        subject:Error("INTERNAL_ERROR")
+
+        assert.spy(error_handler_a).called(2)
+        assert.spy(error_handler_a).called_with("NOT_FOUND")
+        assert.spy(error_handler_a).called_with("INTERNAL_ERROR")
+        assert.spy(error_handler_b).called(2)
+        assert.spy(error_handler_b).called_with("NOT_FOUND")
+        assert.spy(error_handler_b).called_with("INTERNAL_ERROR")
       end)
     end)
 
     describe(":Complete", function()
-      pending("triggers the subscribers' complete handler", function()
+      it("triggers the subscribers' complete handler", function()
+        local handler = function() end
+        local subject = Subject:New()
+        local complete_handler_a = spy.new(function() end)
+        local subscriber_a = subject:Subscribe(handler, handler, complete_handler_a)
+        local complete_handler_b = spy.new(function() end)
+        local subscriber_b = subject:Subscribe(handler, handler, complete_handler_b)
+
+        subject:Complete()
+        subject:Complete()
+
+        assert.spy(complete_handler_a).called(1)
+        assert.spy(complete_handler_b).called(1)
       end)
     end)
 

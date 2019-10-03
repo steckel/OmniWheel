@@ -3,6 +3,7 @@ LUA := lua
 CP := cp
 CP_A := cp -a
 RM_RF := rm -rf
+BUSTED = /Users/steckel/.luarocks/bin/busted
 
 .PHONY: all dist/OmniWheel.lua dist/OmniWheel.toc dist/Bindings.xml clean
 
@@ -25,6 +26,7 @@ dist/OmniWheel.lua: dist
  -m WheelView\
  -m WheelGeometry\
  -m Sector\
+ -m set \
  -m TextureGrid\
  -m WheelGraphics
 
@@ -40,3 +42,6 @@ dist/textures: dist
 
 clean:
 	@${RM_RF} dist
+
+test:
+	@${BUSTED} src

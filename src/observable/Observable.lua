@@ -63,17 +63,23 @@ end
 
 function Observable:Map(mapper)
   return Observable:New(function(observer)
-    local next_handler = function(val) observer:Next(mapper(val)) end
-    return self:Subscribe(next_handler, observer.Error, observer.Complete).Unsubscribe
+    local subscription = self:Subscribe(
+      function(val) observer:Next(mapper(val)) end,
+      function(e) observer:Error(e) end,
+      function() observer:Complete() end
+    )
+    return function() subscription:Unsubscribe() end
   end)
 end
 
 function Observable:Filter(predicate)
   return Observable:New(function(observer)
-    local next_handler = function(val)
-      if predicate(val) then observer:Next(val) end
-    end
-    return self:Subscribe(next_handler, observer.Error, observer.Complete).Unsubscribe
+    local subscription = self:Subscribe(
+      function(val) if predicate(val) then observer:Next(val) end end,
+      function(e) observer:Error(e) end,
+      function() observer:Complete() end
+    )
+    return function() subscription:Unsubscribe() end
   end)
 end
 
@@ -86,7 +92,12 @@ function Observable:Reduce(reducer, initial)
       observer:Next(current)
       index = index + 1
     end
-    return self:Subscribe(next_handler, observer.Error, observer.Complete).Unsubscribe
+    local subscription = self:Subscribe(
+      next_handler,
+      function(e) observer:Error(e) end,
+      function() observer:Complete() end
+    )
+    return function() subscription:Unsubscribe() end
   end)
 end
 

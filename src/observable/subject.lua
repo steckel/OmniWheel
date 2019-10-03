@@ -1,6 +1,7 @@
 module("observable.subject", package.seeall);
 
 local Observable = require("observable.observable");
+local Set = require("set");
 
 local is_callable = function(callable)
   local m = getmetatable(callable);
@@ -32,15 +33,20 @@ setmetatable(Subject, Observable);
 
 function Subject:New()
   local self = setmetatable({}, Subject);
-  self._on_next_handlers = {}
-  self._on_error_handlers = {}
-  self._on_complete_handlers = {}
+  self._on_next_handlers = Set:New()
+  self._on_error_handlers = Set:New()
+  self._on_complete_handlers = Set:New()
   self._subscriber = function(observer)
-    self:_OnNext(function(val) observer:Next(val) end)
-    self:_OnError(function(e) observer:Error(e) end)
-    self:_OnComplete(function() observer:Complete() end)
+    local on_next_handler = function(val) observer:Next(val) end
+    local on_error_handler = function(e) observer:Error(e) end
+    local on_complete_handler = function() observer:Complete() end
+    self._on_next_handlers:Insert(on_next_handler)
+    self._on_error_handlers:Insert(on_error_handler)
+    self._on_complete_handlers:Insert(on_complete_handler)
     return function()
-      self:_UnSubscribe()
+      self._on_next_handlers:Remove(on_next_handler)
+      self._on_error_handlers:Remove(on_error_handler)
+      self._on_complete_handlers:Remove(on_complete_handler)
     end
   end
   return self;
@@ -48,44 +54,30 @@ end
 
 function Subject:Observe()
   return Observable:New(function(observer)
-    return self:Subscribe(
+    return bind(self:Subscribe(
       bind(observer.Next, observer),
       bind(observer.Error, observer),
       bind(observer.Complete, observer)
-    ).Unsubscribe
+    ).Unsubscribe, self)
   end)
 end
 
 function Subject:Next(val)
-  for _, handler in pairs(self._on_next_handlers) do
+  for handler in self._on_next_handlers:Values() do
     handler(val)
   end
 end
 
 function Subject:Error(e)
-  for _, handler in pairs(self._on_error_handlers) do
+  for handler in self._on_error_handlers:Values() do
     handler(e)
   end
 end
 
-function Subject:Complete(val)
-  for _, handler in pairs(self._on_complete_handlers) do
+function Subject:Complete()
+  for handler in self._on_complete_handlers:Values() do
     handler()
   end
 end
-
-function Subject:_OnNext(handler)
-  table.insert(self._on_next_handlers, handler)
-end
-
-function Subject:_OnError(handler)
-  table.insert(self._on_error_handlers, handler)
-end
-
-function Subject:_OnComplete(handler)
-  table.insert(self._on_complete_handlers, handler)
-end
-
-
 
 return Subject;
