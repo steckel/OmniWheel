@@ -1,6 +1,5 @@
 module("WheelView", package.seeall);
 
-local Subject = require("observable.subject");
 local TextureGrid = require("TextureGrid");
 local WheelGeometry = require("WheelGeometry");
 local WheelGraphics = require("WheelGraphics");
@@ -10,9 +9,18 @@ local WheelGraphics = require("WheelGraphics");
 WheelView = {}
 WheelView.__index = WheelView;
 
-function WheelView:New(uiparent)
+function WheelView:New(uiparent, actions, state_observerable)
   local self = setmetatable({}, WheelView);
   local ui_scale = uiparent:GetEffectiveScale();
+
+  self.actions = actions
+
+  state_observerable
+    :Map(function(state) return state['visible'] end)
+    :Reduce(function(prev_vals, next_val) return {prev_vals[2], next_val} end, {})
+    :Filter(function(tuple) return tuple[1] ~= tuple[2] end)
+    :Map(function(tuple) return tuple[2] end)
+    :Subscribe(function(visible) self:OnVisibilityChange(visible) end)
 
   self.frame = CreateFrame("Frame", nil, uiparent);
   self.frame:Hide();
@@ -28,7 +36,6 @@ function WheelView:New(uiparent)
   -- Wheel Geometry
   self.wheel_geometry = WheelGeometry:New();
   -- Event Handling
-  self.event_subject = Subject:New()
   -- background
   self.background = self.frame:CreateTexture(nil,"BACKGROUND");
   self.background:SetColorTexture(0.0, 0.0, 0.0, 0.5);
@@ -61,23 +68,18 @@ function WheelView:OnCursorMove(cursor_x, cursor_y)
   local eight_sector =
     self.wheel_geometry:GetSectorAtPoint(center_x, center_y, cursor_x, cursor_y);
   self:ShowWheelSectorHighlight(eight_sector);
-  self.event_subject:Next({type = "ON_SECTOR_HOVER", data = eight_sector})
+  self.actions:Next({type = "SECTOR_HOVER", data = eight_sector})
 end
 
-function WheelView:Observe()
-  return self.event_subject:Observe()
-end
-
-function WheelView:Show()
-  self.frame:Show();
-  self.frame:SetScript("OnUpdate", function() self:OnFrameUpdate() end);
-  self.event_subject:Next({type = "ON_SHOW"})
-end
-
-function WheelView:Hide()
-  self.frame:Hide();
-  self.frame:SetScript("OnUpdate", nil);
-  self.event_subject:Next({type = "ON_HIDE"})
+function WheelView:OnVisibilityChange(visible)
+  print("OnVisibilityChange", visible)
+  if (visible) then
+    self.frame:Show();
+    self.frame:SetScript("OnUpdate", function() self:OnFrameUpdate() end);
+  else
+    self.frame:Hide();
+    self.frame:SetScript("OnUpdate", nil);
+  end
 end
 
 function WheelView:ShowWheelSectorHighlight(eight_sector)

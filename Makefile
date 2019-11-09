@@ -22,7 +22,6 @@ dist/OmniWheel.lua: dist
  -m observable.subscription\
  -m observable.subscription_observer\
  -m OmniWheelAddon\
- -m WheelController\
  -m WheelView\
  -m WheelGeometry\
  -m Sector\
